@@ -25,18 +25,20 @@ export default function Login() {
     setLoading(true)
     setError(null)
 
-    if (password.length < 8) {
-      setLoading(false)
-      setError('La contraseña debe tener al menos 8 caracteres.')
-      return
-    }
-
     try {
+      console.log("Intentando login con email:", email);
       await signIn("password", { email, password, flow: "signIn" })
-      setLoading(false)
-      navigate('/home')
+      
+      console.log("Login exitoso en servidor, verificando sesión local...");
+      
+      // Esperamos un momento para que el estado de Convex se propague
+      setTimeout(() => {
+        setLoading(false)
+        navigate('/home')
+      }, 500);
     } catch (err) {
       setLoading(false)
+      console.error("Error detallado de login:", err);
       const msg = err?.message || ''
       if (msg.includes('Invalid credentials')) {
         setError('El correo o la contraseña son incorrectos.')
