@@ -1,7 +1,7 @@
 export default {
   providers: [
     {
-      domain: process.env.CONVEX_SITE_URL,
+      domain: "chatty-elk-604.convex.site",
       applicationID: "convex",
     },
   ],
